@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chantal &amp; Kason Seating</title>
+<meta name="description" content="Find your table at Chantal &amp; Kason's wedding. Buscas tu mesa en la boda de Chantal y Kason.">
+<meta property="og:title" content="Chantal &amp; Kason Seating">
+<meta property="og:description" content="Type your name to find your table. Escribe tu nombre para encontrar tu mesa.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#3B2A21">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Marcellus&display=swap">
+<style>
+/* Layout: navy header band, one search field, a result ticket (table number + close-up + tablemates), and a plan of the room that doubles as a table picker. Palette: espresso, olive green and burgundy, with ivory accents. */
+:root{
+  --bg:#F5EFE0;
+  --surface:#FFFBF1;
+  --ink:#2E1F17;
+  --muted:#6A584C;
+  --line:#DDD1B8;
+  --band:#3B2A21;
+  --band-ink:#F7F1E1;
+  --band-accent:#BDC088;
+  --accent:#6F1D2F;
+  --accent-ink:#6F1D2F;
+  --accent-soft:#F1E1DC;
+  --on-accent:#F9F3E4;
+  --olive:#6B7235;
+  --olive-ink:#545A25;
+  --olive-soft:#E9EAD2;
+  --table:#EFE7CE;
+  --table-line:#6B7235;
+  --floor:#E7E9D3;
+  --dot:#3B2A21;
+  --font-display:"Marcellus","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1D1410;--surface:#291C16;--ink:#F3ECDB;--muted:#C2B3A3;--line:#4B3A2F;
+    --band:#140D0A;--band-ink:#F5EEDC;--band-accent:#B3B87A;
+    --accent:#8F2B43;--accent-ink:#E8979F;--accent-soft:#4A2630;--on-accent:#F9F3E4;
+    --olive:#A2A862;--olive-ink:#C3C88A;--olive-soft:#363722;
+    --table:#3A2A21;--table-line:#A2A862;--floor:#2E2E1C;--dot:#E9E2CC;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1D1410;--surface:#291C16;--ink:#F3ECDB;--muted:#C2B3A3;--line:#4B3A2F;
+  --band:#140D0A;--band-ink:#F5EEDC;--band-accent:#B3B87A;
+  --accent:#8F2B43;--accent-ink:#E8979F;--accent-soft:#4A2630;--on-accent:#F9F3E4;
+  --olive:#A2A862;--olive-ink:#C3C88A;--olive-soft:#363722;
+  --table:#3A2A21;--table-line:#A2A862;--floor:#2E2E1C;--dot:#E9E2CC;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--font-body);-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.band :focus-visible{outline-color:var(--band-ink)}
+[data-theme="dark"] :focus-visible{outline-color:var(--accent-ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :focus-visible{outline-color:var(--accent-ink)}}
+.wrap{width:100%;max-width:1040px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.band{background:var(--band);color:var(--band-ink);padding-block:22px 26px}
+.band-in{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.eyebrow{margin:0 0 4px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--band-accent)}
+.names{margin:0;font:400 clamp(32px,8vw,52px)/1.05 var(--font-display);text-wrap:balance}
+.names .amp{color:var(--band-accent);padding-inline:.08em}
+.lang{display:flex;border:1px solid rgba(246,241,232,.35);border-radius:999px;padding:2px;flex:none}
+.lang button{background:none;border:0;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--band-ink);cursor:pointer;min-height:32px}
+.lang button[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+
+.main{display:flex;flex-direction:column;gap:20px;padding-block:22px 40px}
+
+.finder{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.finder label{display:block;font:400 22px/1.2 var(--font-display);margin-bottom:10px}
+.field{position:relative}
+.field svg{position:absolute;left:14px;top:50%;translate:0 -50%;width:20px;height:20px;color:var(--muted);pointer-events:none}
+#guest-search{width:100%;height:54px;padding:0 48px 0 44px;font:500 18px var(--font-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px}
+#guest-search::placeholder{color:var(--muted);font-weight:400}
+#guest-search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+#clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:40px;height:40px;border:0;background:none;border-radius:8px;font-size:24px;line-height:1;color:var(--muted);cursor:pointer}
+.hint{margin:10px 0 0;font-size:14px;color:var(--muted)}
+#suggest{list-style:none;margin:12px 0 0;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;max-height:min(46vh,360px);overflow-y:auto}
+#suggest li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;min-height:48px;cursor:pointer;border-top:1px solid var(--line)}
+#suggest li:first-child{border-top:0}
+#suggest li[aria-selected="true"],#suggest li:hover{background:var(--olive-soft)}
+#suggest .sn{min-width:0;overflow-wrap:anywhere;font-weight:500}
+#suggest .st{flex:none;font-size:13px;font-weight:700;color:var(--accent-ink);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.more{padding:10px 14px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);list-style:none}
+.nomatch{margin:12px 0 0;padding:12px 14px;border-radius:10px;background:var(--olive-soft);color:var(--ink);font-size:15px}
+
+.result{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.rhead{display:flex;align-items:stretch;gap:0;background:var(--band);color:var(--band-ink)}
+.stub{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:104px;padding:14px 18px;border-right:1px dashed rgba(246,241,232,.4)}
+.stub-l{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--band-accent)}
+.stub-n{font:400 64px/1 var(--font-display);color:var(--band-ink);font-variant-numeric:tabular-nums}
+.rname{flex:1;min-width:0;padding:14px 16px;display:flex;flex-direction:column;justify-content:center}
+.rkicker{margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--band-accent)}
+.rname h2{margin:2px 0 0;font:400 clamp(24px,5.5vw,32px)/1.15 var(--font-display);overflow-wrap:anywhere;text-wrap:balance}
+.rsub{margin:4px 0 0;font-size:14px;opacity:.8}
+.closebtn{align-self:flex-start;margin:10px 10px 0 0;flex:none;background:none;border:1px solid rgba(246,241,232,.35);color:var(--band-ink);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;min-height:36px}
+.rbody{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.close{padding:16px 12px;background:var(--floor);display:flex;justify-content:center}
+.close svg{width:100%;max-width:440px;height:auto;display:block}
+.mates{padding:16px 18px 20px}
+.mates h3{margin:0 0 8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mates ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 14px}
+.mates button{width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:9px 10px;min-height:44px;display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;cursor:pointer;overflow-wrap:anywhere}
+.mates button:hover{background:var(--olive-soft)}
+.mates button[aria-current="true"]{background:var(--accent-soft);font-weight:700;box-shadow:inset 0 0 0 1.5px var(--accent)}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px}
+.tag.you{background:var(--accent);color:var(--on-accent)}
+@media (min-width:760px){
+  .rbody{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+  .close{padding:20px}
+}
+
+.mapcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.maphead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;margin-bottom:12px}
+.maphead h2{margin:0;font:400 22px/1.2 var(--font-display)}
+.maphead p{margin:0;font-size:14px;color:var(--muted)}
+#map{width:100%;height:auto;display:block}
+#map .tb{cursor:pointer}
+#map .tb .shape{fill:var(--table);stroke:var(--table-line);stroke-width:7}
+#map .tb .num{fill:var(--ink);font:700 118px var(--font-body);text-anchor:middle;dominant-baseline:central;font-variant-numeric:tabular-nums}
+#map .tb .hit{fill:#000;fill-opacity:0;stroke:none}
+#map .tb .shape{stroke-linejoin:round}
+#map .tb.s .num{stroke:var(--surface);stroke-width:18;paint-order:stroke;stroke-linejoin:round}
+#map .tb.s.on .num{stroke:var(--accent)}
+#map .tb.s:hover .shape{stroke-width:10}
+#map .tb.s.on .shape{stroke-width:8}
+#map .tb:hover .shape{stroke-width:14}
+#map .tb.on .shape{fill:var(--accent);stroke:var(--ink);stroke-width:14}
+#map .tb.on .num{fill:var(--on-accent)}
+#map .tb:focus-visible{outline:none}
+#map .tb:focus-visible .shape{stroke:var(--ink);stroke-width:16}
+#map .floor{fill:var(--floor);stroke:var(--line);stroke-width:6}
+#map .floortxt{fill:var(--muted);font:600 46px var(--font-body);letter-spacing:.12em;text-anchor:middle;dominant-baseline:central;text-transform:uppercase}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){
+  .result{animation:rise .28s ease-out}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
+@media (max-width:420px){
+  .stub{min-width:84px;padding:12px}
+  .stub-n{font-size:52px}
+  .finder,.mapcard{padding:14px}
+}
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="wrap band-in">
+    <div>
+      <p class="eyebrow" data-i18n="eyebrow"></p>
+      <h1 class="names">Chantal <span class="amp">&amp;</span> Kason</h1>
+    </div>
+    <div class="lang" role="group" aria-label="Language / Idioma">
+      <button type="button" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" id="lang-es" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap main">
+  <section class="finder" aria-labelledby="find-label">
+    <label id="find-label" for="guest-search" data-i18n="findLabel"></label>
+    <div class="field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="guest-search" type="text" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="search">
+      <button id="clear" type="button" hidden aria-label="Clear">&times;</button>
+    </div>
+    <p class="hint" id="hint" data-i18n="hint"></p>
+    <ul id="suggest" role="listbox" hidden></ul>
+    <p id="nomatch" class="nomatch" hidden></p>
+  </section>
+
+  <section id="result" class="result" hidden aria-live="polite"></section>
+
+  <section class="mapcard" aria-labelledby="map-title">
+    <div class="maphead">
+      <h2 id="map-title" data-i18n="mapTitle"></h2>
+      <p data-i18n="mapHint"></p>
+    </div>
+    <svg id="map" viewBox="290 420 3050 1410" role="group" aria-label="Room plan"></svg>
+  </section>
+</main>
+
+<script>
+(function(){
+  var TABLES = [{"n":1,"shape":"rect","seats":[{"name":"Brandon Guest","side":"L"},{"name":"Carmen Kiara Ramirez","side":"L"},{"name":"Melissa Quintero","side":"L"},{"name":"Michael Ramirez","side":"L"},{"name":"Michael Martinez","side":"R"},{"name":"Isaiah Infante","side":"R"},{"name":"Katie Hernandez","side":"R"},{"name":"Giselle Diaz","side":"R"},{"name":"Janet Diaz","side":"B"}]},{"n":2,"shape":"s","seats":[{"name":"Jose \"Tito\" Hernandez","side":"L"},{"name":"Elena Clemente","side":"L"},{"name":"Serafin Tinajero","side":"L"},{"name":"Leticia Tinajero","side":"L"},{"name":"Laura Tinajero","side":"L"},{"name":"Jose Clemente","side":"R"},{"name":"Maria Clemente","side":"R"},{"name":"Veronica Clemente","side":"R"},{"name":"Refugio Infante","side":"R"}]},{"n":3,"shape":"rect","seats":[{"name":"Raul Mayorga","side":"L"},{"name":"Shellie Mayorga","side":"L"},{"name":"Annie Rubio","side":"L"},{"name":"Robert Rubio","side":"L"},{"name":"Joe Banuelos","side":"R"},{"name":"Erick Breguer","side":"R"},{"name":"Catalina Perez","side":"R"},{"name":"Adela Romero","side":"R"}]},{"n":4,"shape":"circle","seats":[{"name":"Daniela Zepeda","a":0},{"name":"Brandon Zepeda Romero","a":61},{"name":"Arlette Ochoa Chavez","a":90},{"name":"Karen Murillo","a":124},{"name":"Diego Alonso Godina","a":180},{"name":"Fernando Vazquez Loyola","a":242},{"name":"Marlene Murillo","a":270},{"name":"Leisha Murillo","a":303}]},{"n":5,"shape":"circle","seats":[{"name":"Aristedes Dakis","a":0},{"name":"Jessica Dakis","a":56},{"name":"Sophie Dakis","a":90},{"name":"Sammy Dakis","a":124},{"name":"Joaquin Gonzalez","a":180},{"name":"Sebastian Santana","a":238},{"name":"Nick De Luna","a":270},{"name":"Claudia Torres","a":303}]},{"n":6,"shape":"rect","seats":[{"name":"Donna Murillo","side":"L"},{"name":"Leslie Murillo","side":"L"},{"name":"Ricardo Murillo","side":"L"},{"name":"Martha Murillo","side":"L"},{"name":"America Murillo","side":"R"},{"name":"Renatta Murillo","side":"R"},{"name":"Mario Murillo","side":"R"},{"name":"Karina Murillo","side":"R"},{"name":"Romario Murillo","side":"T"},{"name":"Pablo Murillo","side":"B"}]},{"n":7,"shape":"s","seats":[{"name":"Brian Bañuelos","side":"L"},{"name":"Deannah Cortez","side":"L"},{"name":"Danielle Cortez","side":"L"},{"name":"Junior Cortez","side":"L"},{"name":"Wenceslado Cortez","side":"L"},{"name":"Lisa Cortez","side":"L"},{"name":"Ivan Coronado","side":"R"},{"name":"Mariah Baldwin","side":"R"},{"name":"Allison Mendoza","side":"R"},{"name":"Adaya Mendoza","side":"R"},{"name":"Miguel Mendez","side":"R"}]},{"n":8,"shape":"rect","seats":[{"name":"Hector Murillo","side":"L"},{"name":"Marichuy Murillo","side":"L"},{"name":"Adriana Murillo Ramirez","side":"L"},{"name":"Patricia Murillo Ramirez","side":"L"},{"name":"Luis Murillo","side":"R"},{"name":"Celia Murillo Ramirez","side":"R"},{"name":"Amber Bañuelos","side":"R"},{"name":"Monica Murillo","side":"R"}]},{"n":9,"shape":"rect","seats":[{"name":"Lidia Garcia","side":"L"},{"name":"Adrian Garcia","side":"L"},{"name":"Joanna Bautista","side":"L"},{"name":"Janet Santibañez","side":"L"},{"name":"Jenny Cupa-Garcia","side":"R"},{"name":"Eddie Garcia","side":"R"},{"name":"Juanita Muñiz","side":"R"},{"name":"Mayra Hernandez","side":"R"},{"name":"Ramiro Castellon","side":"B"}]},{"n":10,"shape":"s","seats":[{"name":"Skye Johnson","side":"L"},{"name":"Eric Huntsman","side":"L"},{"name":"Lupe Santana","side":"L"},{"name":"Adriana Guevara","side":"L"},{"name":"Gabriela Barajas","side":"L"},{"name":"Adrian Nuñez","side":"R"},{"name":"Roxanne Galdos","side":"R"},{"name":"Dollie Partida","side":"R"},{"name":"Mia Colacion","side":"R"}]},{"n":11,"shape":"rect","seats":[{"name":"Anthony Rubio","side":"L"},{"name":"Carolina Rubio","side":"L"},{"name":"Nene Murillo","side":"L"},{"name":"Jenell Turner","side":"L"},{"name":"Ryan McKillop","side":"R"},{"name":"Luke Howard","side":"R"},{"name":"Bailey Miller","side":"R"},{"name":"Adriana Bejar","side":"R"}]},{"n":12,"shape":"circle","seats":[{"name":"Linda Saucedo","a":0},{"name":"Pedro Cerda","a":56},{"name":"Maribel Narez","a":90},{"name":"Ignacia Cerda Narez","a":121},{"name":"Sophia Gonzalez","a":180},{"name":"Karina Gonzalez","a":237},{"name":"Carmen Chavez","a":270},{"name":"Jorge Narez","a":303}]},{"n":13,"shape":"circle","seats":[{"name":"Juan Manuel Chavez","a":0},{"name":"Josy Chavez","a":61},{"name":"Dalila Chavez","a":99},{"name":"Tere Chavez","a":141},{"name":"Sergio Tejeda Galvez","a":224},{"name":"Reyna Chavez Andrade","a":262},{"name":"Rosario Chavez","a":298}]},{"n":14,"shape":"rect","seats":[{"name":"Guillermo Andalon","side":"L"},{"name":"Maria Luz Andalon Chavez","side":"L"},{"name":"Candelaria Chavez Gonzalez","side":"L"},{"name":"Isabel Narez","side":"L"},{"name":"Alexis Andalon","side":"R"},{"name":"Paulina Orihuela","side":"R"},{"name":"Estela Chavez","side":"R"},{"name":"Frank Chavez","side":"R"},{"name":"Julian Rivera","side":"T"},{"name":"Christian Rivera","side":"B"}]},{"n":15,"shape":"s","seats":[{"name":"Elizabeth Chavez Rivera","side":"L"},{"name":"Jerry Rivera","side":"L"},{"name":"Julio Reyes","side":"L"},{"name":"Adilia Jauregi","side":"L"},{"name":"Maria Guerrero","side":"L"},{"name":"Blenda Chavez","side":"R"},{"name":"Yessica Marlene Bernal","side":"R"},{"name":"Edgar Williams Hernandez","side":"R"},{"name":"Virginia Romero Chavez","side":"R"},{"name":"Martha Tirado Benito","side":"R"}]},{"n":16,"shape":"rect","seats":[{"name":"Rafael Ramos","side":"L"},{"name":"Esperanza Ramos","side":"L"},{"name":"Danielle Perez","side":"L"},{"name":"Carlos Perez","side":"L"},{"name":"Susie Garcia","side":"R"},{"name":"Fredie Garcia","side":"R"},{"name":"Yesenia Hilbert","side":"R"},{"name":"Trevor Hilbert","side":"R"}]}];
+  var MAP_POS = {
+    1:[430,589],2:[805,599],3:[1270,589],9:[2330,589],10:[2760,599],11:[3200,589],
+    4:[430,1134],5:[955,1134],12:[2350,1134],13:[2885,1134],
+    6:[430,1654],7:[820,1654],8:[1270,1654],14:[2330,1654],15:[2760,1654],16:[3200,1654]
+  };
+  var I18N = {
+    en:{
+      eyebrow:'Seating chart', findLabel:'Find your seat', placeholder:'Type your name',
+      hint:'Try your first name, your last name, or both.',
+      mapTitle:'Room plan', mapHint:'Tap a table to see who is seated there.',
+      table:'Table', yourTable:'Your table', overview:'Table overview',
+      guests:'{n} guests', atTable:'At this table', you:'You',
+      close:'Close', clear:'Clear',
+      none:'No guest found for “{q}”. Check the spelling or try only your last name.',
+      more:'{n} more. Keep typing to narrow the list.', danceFloor:'Dance floor',
+      tableLabel:'Table {n}, {g} guests', room:'Room plan'
+    },
+    es:{
+      eyebrow:'Plano de mesas', findLabel:'Encuentra tu asiento', placeholder:'Escribe tu nombre',
+      hint:'Prueba con tu nombre, tu apellido o ambos.',
+      mapTitle:'Plano del salón', mapHint:'Toca una mesa para ver quiénes se sientan ahí.',
+      table:'Mesa', yourTable:'Tu mesa', overview:'Resumen de la mesa',
+      guests:'{n} invitados', atTable:'En esta mesa', you:'Tú',
+      close:'Cerrar', clear:'Borrar',
+      none:'No encontramos a “{q}”. Revisa la ortografía o prueba solo con tu apellido.',
+      more:'{n} más. Sigue escribiendo para acotar la lista.', danceFloor:'Pista de baile',
+      tableLabel:'Mesa {n}, {g} invitados', room:'Plano del salón'
+    }
+  };
+  var lang = 'en';
+  try{
+    var saved = localStorage.getItem('ck-lang');
+    if(saved==='en'||saved==='es') lang = saved;
+    else if((navigator.language||'').toLowerCase().indexOf('es')===0) lang = 'es';
+  }catch(e){
+    if((navigator.language||'').toLowerCase().indexOf('es')===0) lang = 'es';
+  }
+  function t(k,v){
+    var s = I18N[lang][k]; if(s==null) s = I18N.en[k]||k;
+    if(v) for(var p in v) s = s.split('{'+p+'}').join(v[p]);
+    return s;
+  }
+
+  function norm(s){
+    return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  }
+  function shortName(n){
+    var p = n.replace(/"/g,'').split(/\s+/);
+    return p.length>1 ? p[0]+' '+p[p.length-1].charAt(0)+'.' : p[0];
+  }
+
+  var GUESTS = [], BYTABLE = {};
+  TABLES.forEach(function(tb){
+    BYTABLE[tb.n] = tb;
+    tb.seats.forEach(function(s){
+      GUESTS.push({name:s.name, table:tb.n, key:norm(s.name)});
+    });
+  });
+
+  var el = {
+    input:document.getElementById('guest-search'), clear:document.getElementById('clear'),
+    suggest:document.getElementById('suggest'), nomatch:document.getElementById('nomatch'),
+    result:document.getElementById('result'), map:document.getElementById('map'), hint:document.getElementById('hint')
+  };
+  var state = {table:null, guest:null, matches:[], active:-1};
+
+  function search(q){
+    var toks = norm(q).split(' ').filter(Boolean);
+    if(!toks.length) return [];
+    var out = [];
+    GUESTS.forEach(function(g){
+      var words = g.key.split(' '), score = 0, ok = true;
+      for(var i=0;i<toks.length;i++){
+        var tk = toks[i], best = 0;
+        for(var j=0;j<words.length;j++){
+          if(words[j]===tk) best = Math.max(best,3);
+          else if(words[j].indexOf(tk)===0) best = Math.max(best,2);
+        }
+        if(!best && g.key.indexOf(tk)>-1) best = 1;
+        if(!best){ ok=false; break; }
+        score += best;
+      }
+      if(ok){
+        if(g.key.indexOf(toks.join(' '))===0) score += 3;
+        out.push({g:g, score:score});
+      }
+    });
+    out.sort(function(a,b){ return b.score-a.score || a.g.key.localeCompare(b.g.key); });
+    return out.map(function(o){ return o.g; });
+  }
+
+  function esc(s){ return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  function renderSuggest(){
+    var q = el.input.value;
+    el.clear.hidden = !q;
+    el.nomatch.hidden = true;
+    var m = search(q);
+    state.matches = m; state.active = -1;
+    if(!q.trim()){ el.suggest.hidden = true; el.input.setAttribute('aria-expanded','false'); el.hint.hidden = false; return; }
+    el.hint.hidden = true;
+    if(!m.length){
+      el.suggest.hidden = true; el.input.setAttribute('aria-expanded','false');
+      el.nomatch.textContent = t('none',{q:q.trim()});
+      el.nomatch.hidden = false; return;
+    }
+    var LIMIT = 40, html = '';
+    m.slice(0,LIMIT).forEach(function(g,i){
+      html += '<li role="option" id="opt-'+i+'" data-i="'+i+'" aria-selected="false"><span class="sn">'+esc(g.name)+'</span><span class="st">'+t('table')+' '+g.table+'</span></li>';
+    });
+    if(m.length>LIMIT) html += '<li class="more" role="presentation">'+t('more',{n:m.length-LIMIT})+'</li>';
+    el.suggest.innerHTML = html;
+    el.suggest.hidden = false;
+    el.input.setAttribute('aria-expanded','true');
+  }
+  function setActive(i){
+    var items = el.suggest.querySelectorAll('li[role="option"]');
+    if(!items.length) return;
+    state.active = (i+items.length)%items.length;
+    items.forEach(function(li,k){ li.setAttribute('aria-selected', k===state.active?'true':'false'); });
+    var cur = items[state.active];
+    el.input.setAttribute('aria-activedescendant', cur.id);
+    cur.scrollIntoView({block:'nearest'});
+  }
+
+  function chooseGuest(g){
+    state.guest = g; state.table = g.table;
+    el.input.value = g.name;
+    el.clear.hidden = false;
+    el.suggest.hidden = true; el.nomatch.hidden = true; el.hint.hidden = true;
+    el.input.setAttribute('aria-expanded','false');
+    el.input.removeAttribute('aria-activedescendant');
+    setHash(g.table);
+    renderAll(true);
+  }
+  function chooseTable(n, fromMap){
+    state.table = n;
+    if(!state.guest || state.guest.table!==n) state.guest = null;
+    if(!state.guest){ el.input.value=''; el.clear.hidden=true; el.suggest.hidden=true; el.nomatch.hidden=true; el.hint.hidden=false; }
+    setHash(n);
+    renderAll(true);
+  }
+  function resetAll(){
+    state.table = null; state.guest = null;
+    el.input.value=''; el.clear.hidden=true; el.suggest.hidden=true; el.nomatch.hidden=true; el.hint.hidden=false;
+    el.input.setAttribute('aria-expanded','false');
+    try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){}
+    renderAll(false);
+  }
+  function setHash(n){ try{ var h='table-'+n; if(location.hash!=='#'+h) location.hash = h; }catch(e){} }
+
+
+  var S_SEGS = [["M",25.0,-88.0],["C",-82.0,-70.0,-82.0,-18.0,0.0,0.0],["C",82.0,18.0,82.0,70.0,-25.0,88.0],["L",-3.0,66.0],["C",52.0,55.0,52.0,22.0,-15.0,6.0],["C",-52.0,-5.0,-52.0,-49.0,3.0,-66.0],["Z"]];
+  function sPath(k, ox, oy){
+    var d = '';
+    S_SEGS.forEach(function(g){
+      d += g[0];
+      for(var i=1;i<g.length;i+=2) d += ' '+(ox+g[i]*k).toFixed(1)+' '+(oy+g[i+1]*k).toFixed(1);
+      d += ' ';
+    });
+    return d;
+  }
+  function sPoly(k){
+    var pts = [], cur = null;
+    S_SEGS.forEach(function(g){
+      if(g[0]==='M' || g[0]==='L'){ cur = [g[1],g[2]]; pts.push([cur[0],cur[1]]); }
+      else if(g[0]==='C'){
+        for(var q=1;q<=16;q++){
+          var u = q/16, v = 1-u;
+          pts.push([
+            v*v*v*cur[0]+3*v*v*u*g[1]+3*v*u*u*g[3]+u*u*u*g[5],
+            v*v*v*cur[1]+3*v*v*u*g[2]+3*v*u*u*g[4]+u*u*u*g[6]
+          ]);
+        }
+        cur = [g[5],g[6]];
+      }
+    });
+    return pts.map(function(p){ return [p[0]*k, p[1]*k]; });
+  }
+  function xRange(poly, y){
+    var lo = 1e9, hi = -1e9, n = poly.length;
+    for(var i=0;i<n;i++){
+      var a = poly[i], b = poly[(i+1)%n];
+      if((a[1]<=y && b[1]>y) || (b[1]<=y && a[1]>y)){
+        var x = a[0]+(y-a[1])*(b[0]-a[0])/(b[1]-a[1]);
+        if(x<lo) lo = x;
+        if(x>hi) hi = x;
+      }
+    }
+    return lo<=hi ? [lo,hi] : [-30,30];
+  }
+
+  function closeupSVG(tb, hi){
+    var s = [], VW = 196, vb, f = 15.5;
+    function seat(x,y,name,anchor,lx,ly,isHi){
+      var r = isHi?11:7.5;
+      s.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r+'" fill="'+(isHi?'var(--accent)':'var(--dot)')+'" stroke="'+(isHi?'var(--ink)':'var(--floor)')+'" stroke-width="'+(isHi?2.5:2)+'"/>');
+      s.push('<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="'+anchor+'" dominant-baseline="central" font-size="'+f+'" font-weight="'+(isHi?700:500)+'" fill="'+(isHi?'var(--accent-ink)':'var(--ink)')+'">'+esc(shortName(name))+'</text>');
+    }
+    if(tb.shape==='s'){
+      VW = 208;
+      var sk = 1.1, poly = sPoly(sk), ys = poly.map(function(p){return p[1];});
+      var top0 = Math.min.apply(null,ys), bot0 = Math.max.apply(null,ys), SH = bot0-top0;
+      s.push('<path d="'+sPath(sk,0,0)+'" fill="var(--table)" stroke="var(--table-line)" stroke-width="3" stroke-linejoin="round"/>');
+      s.push('<text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-size="34" font-weight="700" fill="var(--ink)" stroke="var(--surface)" stroke-width="7" paint-order="stroke" stroke-linejoin="round">'+tb.n+'</text>');
+      var SL = [], SR = [];
+      tb.seats.forEach(function(sd){ (sd.side==='L'?SL:SR).push(sd); });
+      [[SL,-1],[SR,1]].forEach(function(pair){
+        var list = pair[0], dir = pair[1];
+        list.forEach(function(sd,i){
+          var y = top0 + (i+0.5)*SH/list.length, r = xRange(poly,y), edge = dir<0 ? r[0] : r[1];
+          seat(edge+dir*11, y, sd.name, dir<0?'end':'start', edge+dir*26, y, hi===sd.name);
+        });
+      });
+      vb = [-VW, top0-16, VW*2, SH+32];
+    } else if(tb.shape==='circle'){
+      var R = 54, n = tb.seats.length;
+      s.push('<circle cx="0" cy="0" r="'+R+'" fill="var(--table)" stroke="var(--table-line)" stroke-width="3"/>');
+      s.push('<text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-size="34" font-weight="700" fill="var(--ink)" opacity=".55">'+tb.n+'</text>');
+      tb.seats.forEach(function(sd){
+        var a = sd.a*Math.PI/180, sn = Math.sin(a), cs = Math.cos(a);
+        var dx = (R+10)*sn, dy = -(R+10)*cs;
+        var lx = (R+24)*sn, ly = -(R+24)*cs, anchor = 'middle';
+        if(sn>0.35){ anchor='start'; } else if(sn<-0.35){ anchor='end'; }
+        else { ly += cs>0 ? -8 : 8; }
+        seat(dx,dy,sd.name,anchor,lx,ly,hi===sd.name);
+      });
+      vb = [-VW,-112,VW*2,224];
+    } else {
+      var L=[],Rr=[],T=[],B=[];
+      tb.seats.forEach(function(sd){ ({L:L,R:Rr,T:T,B:B})[sd.side].push(sd); });
+      var W = 84, gap = 42, body = Math.max(L.length,Rr.length,2)*gap+16;
+      s.push('<rect x="'+(-W/2)+'" y="'+(-body/2)+'" width="'+W+'" height="'+body+'" rx="14" fill="var(--table)" stroke="var(--table-line)" stroke-width="3"/>');
+      s.push('<text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-size="34" font-weight="700" fill="var(--ink)" opacity=".55">'+tb.n+'</text>');
+      function side(list, dir){
+        list.forEach(function(sd,i){
+          var y = -body/2 + (i+0.5)*(body/list.length);
+          var x = dir*(W/2+12);
+          seat(x,y,sd.name, dir<0?'end':'start', dir*(W/2+28), y, hi===sd.name);
+        });
+      }
+      side(L,-1); side(Rr,1);
+      function ends(list, dir){
+        list.forEach(function(sd,i){
+          var x = (i-(list.length-1)/2)*80;
+          var y = dir*(body/2+14);
+          seat(x,y,sd.name,'middle',x,dir*(body/2+34),hi===sd.name);
+        });
+      }
+      ends(T,-1); ends(B,1);
+      var top = T.length ? body/2+52 : body/2+14, bot = B.length ? body/2+52 : body/2+14;
+      vb = [-VW,-top,VW*2,top+bot];
+    }
+    return '<svg viewBox="'+vb.join(' ')+'" role="img" aria-label="'+esc(t('table')+' '+tb.n)+'">'+s.join('')+'</svg>';
+  }
+
+  function renderResult(scroll){
+    if(state.table==null){ el.result.hidden = true; el.result.innerHTML=''; return; }
+    var tb = BYTABLE[state.table], g = state.guest, n = tb.seats.length;
+    var mates = tb.seats.slice().sort(function(a,b){ return norm(a.name).localeCompare(norm(b.name)); });
+    var html = '<div class="rhead"><div class="stub"><span class="stub-l">'+t('table')+'</span><span class="stub-n">'+tb.n+'</span></div>'
+      + '<div class="rname"><p class="rkicker">'+(g?t('yourTable'):t('overview'))+'</p><h2>'+(g?esc(g.name):t('guests',{n:n}))+'</h2>'
+      + (g?'<p class="rsub">'+t('guests',{n:n})+'</p>':'')+'</div>'
+      + '<button type="button" class="closebtn" id="close-result">'+t('close')+'</button></div>'
+      + '<div class="rbody"><div class="close">'+closeupSVG(tb, g?g.name:null)+'</div>'
+      + '<div class="mates"><h3>'+t('atTable')+'</h3><ul>';
+    mates.forEach(function(sd){
+      var me = g && g.name===sd.name;
+      html += '<li><button type="button" data-name="'+esc(sd.name)+'"'+(me?' aria-current="true"':'')+'><span>'+esc(sd.name)+'</span>'
+        + (me?'<span class="tag you">'+t('you')+'</span>':'') + '</button></li>';
+    });
+    html += '</ul></div></div>';
+    el.result.innerHTML = html;
+    el.result.hidden = false;
+    if(scroll){
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      try{ el.result.scrollIntoView({behavior:reduce?'auto':'smooth', block:'start'}); }catch(e){}
+    }
+  }
+
+  function renderMap(){
+    var s = '<rect class="floor" x="1550" y="867" width="500" height="570" rx="40"/>'
+      + '<text class="floortxt" x="1800" y="1152">'+esc(t('danceFloor'))+'</text>';
+    TABLES.forEach(function(tb){
+      var p = MAP_POS[tb.n], cx = p[0], cy = p[1], on = state.table===tb.n;
+      var label = t('tableLabel',{n:tb.n,g:tb.seats.length});
+      s += '<g class="tb'+(tb.shape==='s'?' s':'')+(on?' on':'')+'" data-t="'+tb.n+'" tabindex="0" role="button" aria-label="'+esc(label)+'" aria-pressed="'+on+'">';
+      if(tb.shape==='s'){
+        s += '<rect class="hit" x="'+(cx-105)+'" y="'+(cy-155)+'" width="210" height="310"/>'
+          + '<path class="shape" d="'+sPath(1.7,cx,cy)+'"/>';
+      }
+      else if(tb.shape==='circle') s += '<circle class="shape" cx="'+cx+'" cy="'+cy+'" r="96"/>';
+      else s += '<rect class="shape" x="'+(cx-90)+'" y="'+(cy-132)+'" width="180" height="264" rx="26"/>';
+      s += '<text class="num" x="'+cx+'" y="'+(cy+6)+'">'+tb.n+'</text></g>';
+    });
+    el.map.innerHTML = s;
+    el.map.setAttribute('aria-label', t('room'));
+  }
+
+  function applyText(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(n){ n.textContent = t(n.getAttribute('data-i18n')); });
+    el.input.placeholder = t('placeholder');
+    el.clear.setAttribute('aria-label', t('clear'));
+    document.getElementById('lang-en').setAttribute('aria-pressed', lang==='en');
+    document.getElementById('lang-es').setAttribute('aria-pressed', lang==='es');
+    document.title = 'Chantal & Kason Seating';
+  }
+  function renderAll(scroll){
+    renderMap(); renderResult(scroll);
+  }
+
+  el.input.addEventListener('input', function(){
+    if(state.guest && el.input.value!==state.guest.name){ state.guest = null; }
+    renderSuggest();
+  });
+  el.input.addEventListener('keydown', function(e){
+    if(e.key==='ArrowDown'){ e.preventDefault(); if(!el.suggest.hidden) setActive(state.active+1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); if(!el.suggest.hidden) setActive(state.active-1); }
+    else if(e.key==='Enter'){
+      e.preventDefault();
+      if(!state.matches.length) return;
+      chooseGuest(state.matches[state.active>=0?state.active:0]);
+      el.input.blur();
+    }
+    else if(e.key==='Escape'){ el.suggest.hidden = true; el.input.setAttribute('aria-expanded','false'); }
+  });
+  el.suggest.addEventListener('click', function(e){
+    var li = e.target.closest('li[data-i]'); if(!li) return;
+    chooseGuest(state.matches[+li.getAttribute('data-i')]);
+  });
+  el.clear.addEventListener('click', function(){ resetAll(); el.input.focus(); });
+  el.result.addEventListener('click', function(e){
+    if(e.target.closest('#close-result')){ resetAll(); return; }
+    var b = e.target.closest('button[data-name]'); if(!b) return;
+    var nm = b.getAttribute('data-name');
+    for(var i=0;i<GUESTS.length;i++) if(GUESTS[i].name===nm){ chooseGuest(GUESTS[i]); break; }
+  });
+  el.map.addEventListener('click', function(e){
+    var g = e.target.closest('.tb'); if(g) chooseTable(+g.getAttribute('data-t'), true);
+  });
+  el.map.addEventListener('keydown', function(e){
+    if(e.key!=='Enter' && e.key!==' ') return;
+    var g = e.target.closest('.tb'); if(!g) return;
+    e.preventDefault(); chooseTable(+g.getAttribute('data-t'), true);
+  });
+  document.getElementById('lang-en').addEventListener('click', function(){ setLang('en'); });
+  document.getElementById('lang-es').addEventListener('click', function(){ setLang('es'); });
+  function setLang(l){
+    lang = l; try{ localStorage.setItem('ck-lang', l); }catch(e){}
+    applyText(); renderAll(false);
+    if(el.input.value.trim() && !state.guest) renderSuggest();
+    else if(state.guest){ el.nomatch.hidden = true; }
+  }
+  function fromHash(){
+    var m = /^#table-(\d+)$/.exec(location.hash||'');
+    if(!m) return;
+    var n = +m[1];
+    if(BYTABLE[n] && state.table!==n){ state.table = n; state.guest = null; renderAll(false); }
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  applyText(); renderAll(false); fromHash();
+  window.__ck = {search:search, GUESTS:GUESTS, choose:chooseGuest};
+})();
+</script>
+</body>
+</html>
